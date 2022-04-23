@@ -6,7 +6,8 @@ import numpy as np
 
 def random_init(points_num,min_x, max_x, min_y, max_y):
     points = []
-
+#for i in range(point_num)
+#!NO 要排除重复的点
     while len(points)<=points_num:
         x=random.randint(min_x,max_x)
         y=random.randint(min_y,max_y)
@@ -15,8 +16,7 @@ def random_init(points_num,min_x, max_x, min_y, max_y):
         points.append([x,y])
 
 
-#for i in range(point_num)
-#!NO
+
     # while len(points)!=points_num:
     #     x = random.randint(min_x,max_x)
     #     y = random.randint(min_y,max_y)
@@ -41,8 +41,8 @@ def calculate_distance(points):
             list.append(dis(points[i],points[j]))
         distance.append(list)
     return distance
-    
-def get_next_pos(possibility):
+   
+def get_next_pos(possibility):#根据信息素浓度求出下一个点的位置//轮盘赌 
     #print(possibility)
     n = sum(possibility)
     
@@ -52,8 +52,8 @@ def get_next_pos(possibility):
     n = sum(possibility)
     r = random.uniform(0,n)
     pos = 0
-    while True:
-        if possibility[pos]==0:
+    while True:#轮盘赌的实现
+        if possibility[pos]==0:#排除第一次出现0的情况
             pos+=1
         elif r-possibility[pos]<0:
             return pos
@@ -69,13 +69,12 @@ def load_example(number):
     url = f'./data/example-{number}.txt'
     file = open(url,'r')
     content = file.readlines()
-
     points = []
     for data in content:
         x,y = data.split(" ")
         points.append([int(x),int(y)])
     distance = calculate_distance(points)
-    
+    file.close()
     return points,distance
 
 def draw_picture(points,distance,path,iteration):

@@ -28,7 +28,7 @@ def main():
     else:
         points = random_init(args.points,args.min_x,args.max_x,args.min_y,args.max_y)
         distance = calculate_distance(points)
-    aco = ACO(
+    aco = ACO(#args.ant,args.generation,args.alpha,args.beta,args.rho,args.q,args.strategy,points,distance,
         ant_count=args.ant,
         generations=args.generation,
         alpha=args.alpha,

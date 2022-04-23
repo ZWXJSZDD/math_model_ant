@@ -36,18 +36,18 @@ class ACO(object):
 
     def roulette(self,id,pos):
         # classical roulette method 
-        possibility = []
+        possibility = []#记录到每个点的概率
         for i in range(self.rank):
-            if i in self.memory_vector[id]:
+            if i in self.memory_vector[id]:#将已经走过的点置零 不再重复
                 # if the ant has been to the point, pass it
                 possibility.append(0)
-            else:
+            else:#pheromone_contentpheromone_content 当前信息素浓度
                 possibility.append(self.pheromone_content[pos][i]**self.alpha*(self.eta[pos][i]**self.beta))
 
         next_pos = get_next_pos(possibility)
         return next_pos
 
-    def update_pheromone_delta(self,ant_path):
+    def update_pheromone_delta(self,ant_path):#更新信息素浓度
         # we must update the pheromone content in the same time, instead of one by one, otherwise it may 
         # affect the possibility of other ants
         if self.update_strategy == 0:
